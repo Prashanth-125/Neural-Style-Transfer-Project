@@ -9,6 +9,7 @@ from wtforms.validators import InputRequired
 from PIL import Image
 from torchvision import transforms
 import io
+import traceback
 
 # Import your existing AdaIN code
 from utils.models import VGGEncoder, Decoder
@@ -120,7 +121,8 @@ def index():
                 
                 result_image = result_filename
             except Exception as e:
-                error = str(e)
+                traceback.print_exc()
+                error = f"{type(e).__name__}: {e}"
     else:
         if not content_filename:
             error = 'Please upload content image'
